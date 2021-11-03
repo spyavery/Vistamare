@@ -1,0 +1,97 @@
+{
+  "info": {
+    "_postman_id": "90bd1b98-1483-4f92-b74d-3a2f10ec65a2",
+    "name": "parvista",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "getToken",
+      "_postman_id": "c35f7b05-f1ef-40fe-bfcb-7a2be806df18",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"secret\" : \"eUuJ660envloBCI84SN9doW5PtojDfG1\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://parvista.yapisoft.com/parvista/token/getToken"
+      },
+      "response": []
+    },
+    {
+      "name": "projects",
+      "_postman_id": "cc0865b9-7d4d-4a49-ab70-67892a0d7c8a",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjM1NzcxNjE5fQ.4Ac2QFtA5yC-zwx4SBlw3XfFwTZJ60Ikat5tTsznnms\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://parvista.yapisoft.com/parvista/api/projects"
+      },
+      "response": []
+    },
+    {
+      "name": "blocks",
+      "_postman_id": "c2cdd9f6-3a8d-4a62-be7c-a7e2195639d5",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjM1NzcxNjE5fQ.4Ac2QFtA5yC-zwx4SBlw3XfFwTZJ60Ikat5tTsznnms\",\r\n    \"project_id\" : \"1\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://parvista.yapisoft.com/parvista/api/blocks"
+      },
+      "response": []
+    },
+    {
+      "name": "flats",
+      "_postman_id": "df1351b0-cba7-4b0a-ab9a-32ad73cc4d52",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjM1NzcxNjE5fQ.4Ac2QFtA5yC-zwx4SBlw3XfFwTZJ60Ikat5tTsznnms\",\r\n    \"project_id\" : \"1\",\r\n    \"block_id\" : \"4\"\r\n    \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://parvista.yapisoft.com/parvista/api/flats"
+      },
+      "response": []
+    }
+  ]
+}
