@@ -618,6 +618,8 @@ function get_flats_from_api() {
 	
 	$file = get_stylesheet_directory(). '/flats.txt';
 	$files = get_stylesheet_directory(). '/flat_pages.txt';
+
+	$fiesACF = get_stylesheet_directory(). '/ACF.txt';
 	
 	$project = get_project_from_api();
 	
@@ -675,6 +677,28 @@ function get_flats_from_api() {
 		$flats = [];
 	
 		$flats[] = $get_flats;
+
+		$projectsYapi = [];
+
+		$projectsYapi[] = $project;
+
+		// foreach( $projectsYapi[0] as $projectFillable ) {
+		// 	$fillable1 = [
+		// 		'field_618543d05c01e' => 'project_id',
+		// 		'field_618543fc5c01f' => 'project_name',
+		// 		'field_618544165c020' => 'project_blocks',
+		// 		'field_618544a85c021' => 'project_flats',
+		// 	];
+		// }
+
+		// $fillable2 = [
+		// 	'field_618546bfcca51' => 'project_id',
+		// 	'field_618546cccca52' => 'block_name',
+		// 	'field_618546d5cca53' => 'number_of_flats',
+		// 	'field_618546e3cca54' => 'project_id',
+		// ];
+
+		// $flats = (object) $flats1;
 	
 		foreach( $flats[0] as $flat ){
 	
@@ -697,49 +721,70 @@ function get_flats_from_api() {
 				if(is_wp_error( $inserted_flat )){
 					continue;
 				}
+
+				$fillable = [
+					'field_618547bb845eb' => 'flat_id',
+					'field_618547cd845ec' => 'block_id',
+					'field_618547e4845ed' => 'project_id',
+					'field_618547eb845ee' => 'flat_no',
+					'field_618547f5845ef' => 'flat_price',
+					'field_61854806845f0' => 'flat_floor',
+					'field_61854811845f1' => 'gross_m2',
+					'field_61854827845f2' => 'net_m2',
+					'field_61854838845f3' => 'balcony_m2',
+					'field_6185484c845f4' => 'garden_m2',
+					'field_61854859845f5' => 'flat_type',
+					'field_61854868845f6' => 'flat_direction',
+					'field_61854873845f7' => 'flat_status',
+				];
+
+				// $fillable = array_merge( $fillable1, $fillable2, $fillable3 );
+				
 	
 				//Add to AFC
-				$fillable = [
-					'field_618543d05c01e' => $project_id,
-					'field_618543fc5c01f' => $project_name,
-					'field_618544165c020' => $project_blocks,
-					'field_618544a85c021' => $project_flats,
-					// 'field_618545445c023' => 'flat_interior_plan_id',
-					// 'field_618545535c024' => 'flat_interior_plan_name',
-					// 'field_618545705c025' => 'interior_plan_image',
-					'field_618546bfcca51' => $blocked['project_id'],
-					'field_618546cccca52' =>$blocked['block_name'],
-					'field_618546d5cca53' => $blocked['number_of_flats'],
-					'field_618546e3cca54' => $blocked['project_id'],
-					// 'field_61854717cca56' => $blocked['situation_plan'][0]['image'],
-					'field_618547bb845eb' => $flat['flat_id'],
-					'field_618547cd845ec' => $flat['block_id'],
-					'field_618547e4845ed' => $flat['project_id'],
-					'field_618547eb845ee' => $flat['flat_no'],
-					'field_618547f5845ef' => $flat['flat_price'],
-					'field_61854806845f0' => $flat['flat_floor'],
-					'field_61854811845f1' => $flat['gross_m2'],
-					'field_61854827845f2' => $flat['net_m2'],
-					'field_61854838845f3' => $flat['balcony_m2'],
-					'field_6185484c845f4' => $flat['garden_m2'],
-					'field_61854859845f5' => $flat['flat_type'],
-					'field_61854868845f6' => $flat['flat_direction'],
-					'field_61854873845f7' => $flat['flat_status'],
-					// 'field_61854880845f8' => 'flat_interior_plan_ids',
-					// 'field_618548af845fa' => $flat['settlement_plan'][0]['settlement_plan_id'],
-					// 'field_618548c2845fb' => $flat['settlement_plan'][0]['settlement_plan_tag_left'],
-					// 'field_618548d5845fc' => $flat['settlement_plan'][0]['settlement_plan_tag_top'],
-					// 'field_618548e3845fd' => $flat['settlement_plan'][0]['settlement_plan_tag_text'],
-					// 'field_618548af845fa' => $flat->settlement_plan->settlement_plan_id,
-					// 'field_618548c2845fb' => $flat->settlement_plan->settlement_plan_tag_left,
-					// 'field_618548d5845fc' => $flat->settlement_plan->settlement_plan_tag_top,
-					// 'field_618548e3845fd' => $flat->settlement_plan->settlement_plan_tag_text,
-				];
+				// $fillable = [
+				// 	'field_618543d05c01e' => $project_id,
+				// 	'field_618543fc5c01f' => $project_name,
+				// 	'field_618544165c020' => $project_blocks,
+				// 	'field_618544a85c021' => $project_flats,
+				// 	// 'field_618545445c023' => 'flat_interior_plan_id',
+				// 	// 'field_618545535c024' => 'flat_interior_plan_name',
+				// 	// 'field_618545705c025' => 'interior_plan_image',
+				// 	'field_618546bfcca51' => $blocked['project_id'],
+				// 	'field_618546cccca52' =>$blocked['block_name'],
+				// 	'field_618546d5cca53' => $blocked['number_of_flats'],
+				// 	'field_618546e3cca54' => $blocked['project_id'],
+				// 	// 'field_61854717cca56' => $blocked['situation_plan'][0]['image'],
+				// 	'field_618547bb845eb' => $flat['flat_id'],
+				// 	'field_618547cd845ec' => $flat['block_id'],
+				// 	'field_618547e4845ed' => $flat['project_id'],
+				// 	'field_618547eb845ee' => $flat['flat_no'],
+				// 	'field_618547f5845ef' => $flat['flat_price'],
+				// 	'field_61854806845f0' => $flat['flat_floor'],
+				// 	'field_61854811845f1' => $flat['gross_m2'],
+				// 	'field_61854827845f2' => $flat['net_m2'],
+				// 	'field_61854838845f3' => $flat['balcony_m2'],
+				// 	'field_6185484c845f4' => $flat['garden_m2'],
+				// 	'field_61854859845f5' => $flat['flat_type'],
+				// 	'field_61854868845f6' => $flat['flat_direction'],
+				// 	'field_61854873845f7' => $flat['flat_status'],
+				// 	// 'field_61854880845f8' => 'flat_interior_plan_ids',
+				// 	// 'field_618548af845fa' => $flat['settlement_plan'][0]['settlement_plan_id'],
+				// 	// 'field_618548c2845fb' => $flat['settlement_plan'][0]['settlement_plan_tag_left'],
+				// 	// 'field_618548d5845fc' => $flat['settlement_plan'][0]['settlement_plan_tag_top'],
+				// 	// 'field_618548e3845fd' => $flat['settlement_plan'][0]['settlement_plan_tag_text'],
+				// 	// 'field_618548af845fa' => $flat->settlement_plan->settlement_plan_id,
+				// 	// 'field_618548c2845fb' => $flat->settlement_plan->settlement_plan_tag_left,
+				// 	// 'field_618548d5845fc' => $flat->settlement_plan->settlement_plan_tag_top,
+				// 	// 'field_618548e3845fd' => $flat->settlement_plan->settlement_plan_tag_text,
+				// ];
 
 				//loop over and update AFC
 
 				foreach($fillable as $key => $name) {
-					update_field( $key, $flat->$name, $inserted_flat );
+					// update_field( $key, $flat['flat_id'], $inserted_flat );
+					update_field( $key, $flat[$name], $inserted_flat );
+					file_put_contents($fiesACF, "Project Name: ".print_r($flat[$name], true). "\n\n", FILE_APPEND);
 				}
 	
 			} else {
@@ -747,46 +792,82 @@ function get_flats_from_api() {
 				$existing_flat_id = $existing_flat->ID;
 				$existing_flat_status = get_field('flat_status', $existing_flat_id);;
 				if($flat['flat_status'] !== $existing_flat_status) {
-					//Add to AFC
+
+					// foreach( $projects[0] as $projectFillable ) {
+					// 	$fillable1 = [
+					// 		'field_618543d05c01e' => 'project_id',
+					// 		'field_618543fc5c01f' => 'project_name',
+					// 		'field_618544165c020' => 'project_blocks',
+					// 		'field_618544a85c021' => 'project_flats',
+					// 	];
+					// }
+			
+					// $fillable2 = [
+					// 	'field_618546bfcca51' => 'project_id',
+					// 	'field_618546cccca52' => 'block_name',
+					// 	'field_618546d5cca53' => 'number_of_flats',
+					// 	'field_618546e3cca54' => 'project_id',
+					// ];
+
 					$fillable = [
-						'field_618543d05c01e' => $project_id,
-						'field_618543fc5c01f' => $project_name,
-						'field_618544165c020' => $project_blocks,
-						'field_618544a85c021' => $project_flats,
-						// 'field_618545445c023' => 'flat_interior_plan_id',
-						// 'field_618545535c024' => 'flat_interior_plan_name',
-						// 'field_618545705c025' => 'interior_plan_image',
-						'field_618546bfcca51' => $blocked['project_id'],
-						'field_618546cccca52' =>$blocked['block_name'],
-						'field_618546d5cca53' => $blocked['number_of_flats'],
-						'field_618546e3cca54' => $blocked['project_id'],
-						// 'field_61854717cca56' => $blocked['situation_plan'][0]['image'],
-						'field_618547bb845eb' => $flat['flat_id'],
-						'field_618547cd845ec' => $flat['block_id'],
-						'field_618547e4845ed' => $flat['project_id'],
-						'field_618547eb845ee' => $flat['flat_no'],
-						'field_618547f5845ef' => $flat['flat_price'],
-						'field_61854806845f0' => $flat['flat_floor'],
-						'field_61854811845f1' => $flat['gross_m2'],
-						'field_61854827845f2' => $flat['net_m2'],
-						'field_61854838845f3' => $flat['balcony_m2'],
-						'field_6185484c845f4' => $flat['garden_m2'],
-						'field_61854859845f5' => $flat['flat_type'],
-						'field_61854868845f6' => $flat['flat_direction'],
-						'field_61854873845f7' => $flat['flat_status'],
-						// 'field_61854880845f8' => 'flat_interior_plan_ids',
-						// 'field_618548af845fa' => $flat['settlement_plan'][0]['settlement_plan_id'],
-						// 'field_618548c2845fb' => $flat['settlement_plan'][0]['settlement_plan_tag_left'],
-						// 'field_618548d5845fc' => $flat['settlement_plan'][0]['settlement_plan_tag_top'],
-						// 'field_618548e3845fd' => $flat['settlement_plan'][0]['settlement_plan_tag_text'],
-						// 'field_618548af845fa' => $flat->settlement_plan->settlement_plan_id,
-						// 'field_618548c2845fb' => $flat->settlement_plan->settlement_plan_tag_left,
-						// 'field_618548d5845fc' => $flat->settlement_plan->settlement_plan_tag_top,
-						// 'field_618548e3845fd' => $flat->settlement_plan->settlement_plan_tag_text,
+						'field_618547bb845eb' => 'flat_id',
+						'field_618547cd845ec' => 'block_id',
+						'field_618547e4845ed' => 'project_id',
+						'field_618547eb845ee' => 'flat_no',
+						'field_618547f5845ef' => 'flat_price',
+						'field_61854806845f0' => 'flat_floor',
+						'field_61854811845f1' => 'gross_m2',
+						'field_61854827845f2' => 'net_m2',
+						'field_61854838845f3' => 'balcony_m2',
+						'field_6185484c845f4' => 'garden_m2',
+						'field_61854859845f5' => 'flat_type',
+						'field_61854868845f6' => 'flat_direction',
+						'field_61854873845f7' => 'flat_status',
 					];
 
-					foreach($fillable as $key => $name) {
-						update_field( $key, $flat->$name, $existing_flat_id );
+					// $fillable = array_merge( $fillable1, $fillable2, $fillable3 );
+					//Add to AFC
+					// $fillable = [
+					// 	'field_618543d05c01e' => $project_id,
+					// 	'field_618543fc5c01f' => $project_name,
+					// 	'field_618544165c020' => $project_blocks,
+					// 	'field_618544a85c021' => $project_flats,
+					// 	// 'field_618545445c023' => 'flat_interior_plan_id',
+					// 	// 'field_618545535c024' => 'flat_interior_plan_name',
+					// 	// 'field_618545705c025' => 'interior_plan_image',
+					// 	'field_618546bfcca51' => $blocked['project_id'],
+					// 	'field_618546cccca52' =>$blocked['block_name'],
+					// 	'field_618546d5cca53' => $blocked['number_of_flats'],
+					// 	'field_618546e3cca54' => $blocked['project_id'],
+					// 	// 'field_61854717cca56' => $blocked['situation_plan'][0]['image'],
+					// 	'field_618547bb845eb' => $flat['flat_id'],
+					// 	'field_618547cd845ec' => $flat['block_id'],
+					// 	'field_618547e4845ed' => $flat['project_id'],
+					// 	'field_618547eb845ee' => $flat['flat_no'],
+					// 	'field_618547f5845ef' => $flat['flat_price'],
+					// 	'field_61854806845f0' => $flat['flat_floor'],
+					// 	'field_61854811845f1' => $flat['gross_m2'],
+					// 	'field_61854827845f2' => $flat['net_m2'],
+					// 	'field_61854838845f3' => $flat['balcony_m2'],
+					// 	'field_6185484c845f4' => $flat['garden_m2'],
+					// 	'field_61854859845f5' => $flat['flat_type'],
+					// 	'field_61854868845f6' => $flat['flat_direction'],
+					// 	'field_61854873845f7' => $flat['flat_status'],
+					// 	// 'field_61854880845f8' => 'flat_interior_plan_ids',
+					// 	// 'field_618548af845fa' => $flat['settlement_plan'][0]['settlement_plan_id'],
+					// 	// 'field_618548c2845fb' => $flat['settlement_plan'][0]['settlement_plan_tag_left'],
+					// 	// 'field_618548d5845fc' => $flat['settlement_plan'][0]['settlement_plan_tag_top'],
+					// 	// 'field_618548e3845fd' => $flat['settlement_plan'][0]['settlement_plan_tag_text'],
+					// 	// 'field_618548af845fa' => $flat->settlement_plan->settlement_plan_id,
+					// 	// 'field_618548c2845fb' => $flat->settlement_plan->settlement_plan_tag_left,
+					// 	// 'field_618548d5845fc' => $flat->settlement_plan->settlement_plan_tag_top,
+					// 	// 'field_618548e3845fd' => $flat->settlement_plan->settlement_plan_tag_text,
+					// ];
+
+					foreach( $fillable as $key => $name ) {
+						// update_field( $key, $flat['flat_id'], $existing_flat_id );
+						update_field( $key, $flat->$flat[$name], $existing_flat_id );
+						file_put_contents($fiesACF, "Project Name: ".print_r($flat[$name], true). "\n\n", FILE_APPEND);
 					}
 				}
 			}
@@ -813,6 +894,8 @@ function get_breweries_from_api(){
 
 	//create a file to log errors
 	$file = get_stylesheet_directory() . '/report.txt';
+	$fiesACF = get_stylesheet_directory(). '/ACF2.txt';
+
 	$current_page = ( ! empty($_POST['current_page'])) ? $_POST['current_page'] : 1;
 	$breweries = [];
 
@@ -870,7 +953,8 @@ function get_breweries_from_api(){
 			//loop over array and update ACF fields
 
 			foreach( $fillable as $key => $name) {
-				update_field( $key, $brewery->$name, $inserted_brewery);
+				// update_field( $key, $brewery->$name, $inserted_brewery);
+				file_put_contents($fiesACF, "Project Name: ".print_r($brewery->name, true). "\n\n", FILE_APPEND);
 			}
 
 		} else {
@@ -901,7 +985,8 @@ function get_breweries_from_api(){
 				//loop over array and update ACF fields
 
 				foreach( $fillable as $key => $name) {
-					update_field( $key, $brewery->$name, $existing_brewery_id);
+					// update_field( $key, $brewery->$name, $existing_brewery_id);
+					file_put_contents($fiesACF, "Project Name: ".print_r($brewery, true). "\n\n", FILE_APPEND);
 				}
 			}
 
