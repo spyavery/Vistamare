@@ -620,6 +620,7 @@ function get_flats_from_api() {
 	$files = get_stylesheet_directory(). '/flat_pages.txt';
 
 	$fiesACF = get_stylesheet_directory(). '/ACF.txt';
+	$fiesACF2 = get_stylesheet_directory(). '/ACF2.txt';
 	
 	$project = get_project_from_api();
 	
@@ -682,23 +683,7 @@ function get_flats_from_api() {
 
 		$projectsYapi[] = $project;
 
-		// foreach( $projectsYapi[0] as $projectFillable ) {
-		// 	$fillable1 = [
-		// 		'field_618543d05c01e' => 'project_id',
-		// 		'field_618543fc5c01f' => 'project_name',
-		// 		'field_618544165c020' => 'project_blocks',
-		// 		'field_618544a85c021' => 'project_flats',
-		// 	];
-		// }
 
-		// $fillable2 = [
-		// 	'field_618546bfcca51' => 'project_id',
-		// 	'field_618546cccca52' => 'block_name',
-		// 	'field_618546d5cca53' => 'number_of_flats',
-		// 	'field_618546e3cca54' => 'project_id',
-		// ];
-
-		// $flats = (object) $flats1;
 	
 		foreach( $flats[0] as $flat ){
 	
@@ -707,6 +692,9 @@ function get_flats_from_api() {
 			//update data from api if new changes are made
 	
 			$existing_flat = get_page_by_path( $flat_slug, 'OBJECT', 'yproject' );
+
+			
+
 	
 			//if it exist then change
 			if($existing_flat === null) {
@@ -738,7 +726,6 @@ function get_flats_from_api() {
 					'field_61854873845f7' => 'flat_status',
 				];
 
-				// $fillable = array_merge( $fillable1, $fillable2, $fillable3 );
 				
 	
 				//Add to AFC
@@ -786,28 +773,17 @@ function get_flats_from_api() {
 					update_field( $key, $flat[$name], $inserted_flat );
 					file_put_contents($fiesACF, "Project Name: ".print_r($flat[$name], true). "\n\n", FILE_APPEND);
 				}
+
+				
 	
 			} else {
 				//now update with new information
 				$existing_flat_id = $existing_flat->ID;
-				$existing_flat_status = get_field('flat_status', $existing_flat_id);;
-				if($flat['flat_status'] !== $existing_flat_status) {
+				$existing_flat_status = get_field('flat_interior_plan_ids', $existing_flat_id);
+				// $existing_flat_status = get_field('flat_status', $existing_flat_id);
+				if(empty($existing_flat_status)) {
+				// if($flat['flat_status'] !== $existing_flat_status) {
 
-					// foreach( $projects[0] as $projectFillable ) {
-					// 	$fillable1 = [
-					// 		'field_618543d05c01e' => 'project_id',
-					// 		'field_618543fc5c01f' => 'project_name',
-					// 		'field_618544165c020' => 'project_blocks',
-					// 		'field_618544a85c021' => 'project_flats',
-					// 	];
-					// }
-			
-					// $fillable2 = [
-					// 	'field_618546bfcca51' => 'project_id',
-					// 	'field_618546cccca52' => 'block_name',
-					// 	'field_618546d5cca53' => 'number_of_flats',
-					// 	'field_618546e3cca54' => 'project_id',
-					// ];
 
 					$fillable = [
 						'field_618547bb845eb' => 'flat_id',
@@ -864,11 +840,34 @@ function get_flats_from_api() {
 					// 	// 'field_618548e3845fd' => $flat->settlement_plan->settlement_plan_tag_text,
 					// ];
 
-					foreach( $fillable as $key => $name ) {
-						// update_field( $key, $flat['flat_id'], $existing_flat_id );
-						update_field( $key, $flat->$flat[$name], $existing_flat_id );
-						file_put_contents($fiesACF, "Project Name: ".print_r($flat[$name], true). "\n\n", FILE_APPEND);
+					// foreach( $fillable as $key => $name ) {
+					// 	// update_field( $key, $flat['flat_id'], $existing_flat_id );
+					// 	update_field( $key, $flat->$flat[$name], $existing_flat_id );
+					// 	file_put_contents($fiesACF, "Project Name: ".print_r($flat[$name], true). "\n\n", FILE_APPEND);
+					// }
+
+					
+
+					$settlementFillable = [
+						'field_618d2b32f6803' => 'settlement_plan_id',
+						'field_618d2b49f6804' => 'settlement_plan_tag_left',
+						'field_618d2b5bf6805' => 'settlement_plan_tag_top',
+						'field_618d2b6cf6806' => 'settlement_plan_tag_text',
+					];
+
+
+				
+
+					foreach( $settlementFillable as $key => $name ) {
+						//  $settlementPlans = $flat['settlement_plan'][0];
+						// update_field( $settlement_id, $flat->$flat['settlement_plan']->$flat[0]->$flat[$name], $existing_flat_id );
+						update_field( $settlement_id, $flat['settlement_plan'][0][$name], $existing_flat_id );
+						// update_sub_field( $key, $flat['settlement_plan']->$name, $existing_flat_id );
+						// file_put_contents($fiesACF2, "Settlement Plan: ".print_r($settlementPlans[$name], true). "\n\n", FILE_APPEND);
+						// file_put_contents($fiesACF2, "Settlement Plan: ".print_r($settlementFillable2, true). "\n\n", FILE_APPEND);
 					}
+
+					
 				}
 			}
 	
