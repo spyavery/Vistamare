@@ -7,7 +7,7 @@
   "item": [
     {
       "name": "getToken",
-      "_postman_id": "c35f7b05-f1ef-40fe-bfcb-7a2be806df18",
+      "id": "c35f7b05-f1ef-40fe-bfcb-7a2be806df18",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -29,7 +29,7 @@
     },
     {
       "name": "projects",
-      "_postman_id": "cc0865b9-7d4d-4a49-ab70-67892a0d7c8a",
+      "id": "cc0865b9-7d4d-4a49-ab70-67892a0d7c8a",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -38,7 +38,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjM1NzcxNjE5fQ.4Ac2QFtA5yC-zwx4SBlw3XfFwTZJ60Ikat5tTsznnms\"\r\n}",
+          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjQwMjY1NDc4fQ.0mtMPEjxD9nSqOU4wXwOiz0oYCgSPFxYOME2E8j5jzo\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -51,7 +51,7 @@
     },
     {
       "name": "blocks",
-      "_postman_id": "c2cdd9f6-3a8d-4a62-be7c-a7e2195639d5",
+      "id": "c2cdd9f6-3a8d-4a62-be7c-a7e2195639d5",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -73,7 +73,7 @@
     },
     {
       "name": "flats",
-      "_postman_id": "df1351b0-cba7-4b0a-ab9a-32ad73cc4d52",
+      "id": "df1351b0-cba7-4b0a-ab9a-32ad73cc4d52",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
