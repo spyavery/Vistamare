@@ -60,7 +60,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjM1NzcxNjE5fQ.4Ac2QFtA5yC-zwx4SBlw3XfFwTZJ60Ikat5tTsznnms\",\r\n    \"project_id\" : \"1\"\r\n}",
+          "raw": "{\r\n\t\"token\" : \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjQwMjYzNDc5fQ.As6J_mgt288-A6RvecykT9khxHOHwgjBWlVEJB4Ci74\",\r\n    \"project_id\" : \"1\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
